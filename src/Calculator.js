@@ -1,43 +1,37 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import './Calculator.css'
 import videoBg from './assests/videoBg.mp4'
+import song1 from './assests/song1.mp3'
+import song2 from './assests/song2.mp3'
 
 
 
 const Calculator = () => {
+
     const [previous, setPrevious] = useState(" ");
     const [operator, setOperator] = useState(" ");
     const [current, setCurrent] = useState(" ");
 
-   
-    useEffect(()=>{
-      clear();
-    },[]);
-   
+
+
+    useEffect(() => {
+        clear();
+    }, []);
+
+
+
     const handleClick = (e) => {
         const value = e.target.getAttribute("name");
-        if (value === "." && current.includes(".")) return;
+        if (value === "." && current.includes(".")) 
+        return;
         setCurrent(current + value);
-    };
-
-
-  
-    const backSpace = () => {
-        setCurrent(String(current).slice(0, -1));
-    };
-    
-   
-   
-     const clear = () => {
-        setCurrent("");
-        setOperator("");
-        setPrevious("");
-      
+        document.getElementById('btn1_sound').play();
     };
 
 
 
     const handleOperation = (e) => {
+        document.getElementById('btn2_sound').play();
         if (current === "")
             return;
         if (previous !== "") {
@@ -48,18 +42,19 @@ const Calculator = () => {
         }
         setCurrent("");
         setOperator(e.target.getAttribute("name"));
-
-    };
+        
+ };
 
 
 
     const calculate = () => {
+        document.getElementById('btn2_sound').play();
         let value = compute();
         if (value === undefined || value == null) return;
         setCurrent(value);
         setPrevious("");
         setOperator("");
-    };
+ };
 
 
 
@@ -91,9 +86,27 @@ const Calculator = () => {
 
         }
         return cal;
+
     };
 
- 
+
+
+
+    const backSpace = () => {
+        setCurrent(String(current).slice(0, -1));
+        document.getElementById('btn2_sound').play();
+    };
+
+
+
+
+    const clear = () => {
+        setCurrent("");
+        setOperator("");
+        setPrevious("");
+        document.getElementById('btn2_sound').play();
+
+    };
 
 
 
@@ -104,8 +117,15 @@ const Calculator = () => {
             <video src={videoBg} autoPlay loop muted />
 
             <div className="container">
-
                 <h1>CALCULATOR</h1>
+
+
+                <Fragment>
+                    <audio id="btn1_sound" src={song1}></audio>
+                    <audio id="btn2_sound" src={song2}></audio>
+                </Fragment>
+
+
 
                 <div class="input">
                     <span>
@@ -117,7 +137,6 @@ const Calculator = () => {
                     <span>
                         {current}
                     </span>
-
 
                 </div>
 
