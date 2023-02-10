@@ -31,6 +31,7 @@ const Calculator = () => {
 
 
     const handleOperation = (e) => {
+        setOperator(e.target.getAttribute("name"));
         document.getElementById('btn2_sound').play();
         if (current === "")
             return;
@@ -41,7 +42,7 @@ const Calculator = () => {
             setPrevious(current);
         }
         setCurrent("");
-        setOperator(e.target.getAttribute("name"));
+        
         
  };
 
