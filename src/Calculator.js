@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Calculator.css'
 import videoBg from './assests/videoBg.mp4'
 
@@ -9,8 +9,11 @@ const Calculator = () => {
     const [operator, setOperator] = useState(" ");
     const [current, setCurrent] = useState(" ");
 
-
-  
+   
+    useEffect(()=>{
+      clear();
+    },[]);
+   
     const handleClick = (e) => {
         const value = e.target.getAttribute("name");
         if (value === "." && current.includes(".")) return;
@@ -21,15 +24,16 @@ const Calculator = () => {
   
     const backSpace = () => {
         setCurrent(String(current).slice(0, -1));
-    }
+    };
     
-
    
-    const clear = () => {
-        setPrevious("");
-        setOperator("");
+   
+     const clear = () => {
         setCurrent("");
-    }
+        setOperator("");
+        setPrevious("");
+      
+    };
 
 
 
@@ -89,6 +93,7 @@ const Calculator = () => {
         return cal;
     };
 
+ 
 
 
 
@@ -112,6 +117,8 @@ const Calculator = () => {
                     <span>
                         {current}
                     </span>
+
+
                 </div>
 
 
