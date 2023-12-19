@@ -91,14 +91,17 @@ const Calculator = () => {
     };
 
 
-
-
     const backSpace = () => {
-        setCurrent(String(current).slice(0, -1));
+        if (current !== "") {
+            setCurrent(String(current).slice(0, -1));
+        } else if (operator !== "") {
+            setOperator("");
+        } else if (previous !== "") {
+            setPrevious(String(previous).slice(0, -1));
+        }
         document.getElementById('btn2_sound').play();
     };
-
-
+    
 
 
     const clear = () => {
@@ -111,8 +114,7 @@ const Calculator = () => {
 
 
 
-
-
+    
     return (
         <>
             <video src={videoBg} autoPlay loop muted />
